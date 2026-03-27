@@ -1,0 +1,45 @@
+[ 1032048ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/:0
+[ 1032765ms] ModuleBuildError: Module build failed (from ./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js):
+Error: It looks like you're trying to use `tailwindcss` directly as a PostCSS plugin. The PostCSS plugin has moved to a separate package, so to continue using Tailwind CSS with PostCSS you'll need to install `@tailwindcss/postcss` and update your PostCSS configuration.
+    at at (D:\AI_Dev\WorkspaceOS\projects\midvoyage-portfolio\node_modules\tailwindcss\dist\lib.js:38:1643)
+    at LazyResult.runOnRoot (D:\AI_Dev\WorkspaceOS\projects\midvoyage-portfolio\node_modules\next\node_modules\postcss\lib\lazy-result.js:329:16)
+    at LazyResult.runAsync (D:\AI_Dev\WorkspaceOS\projects\midvoyage-portfolio\node_modules\next\node_modules\postcss\lib\lazy-result.js:258:26)
+    at LazyResult.async (D:\AI_Dev\WorkspaceOS\projects\midvoyage-portfolio\node_modules\next\node_modules\postcss\lib\lazy-result.js:160:30)
+    at LazyResult.then (D:\AI_Dev\WorkspaceOS\projects\midvoyage-portfolio\node_modules\next\node_modules\postcss\lib\lazy-result.js:404:17)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async Span.traceAsyncFn (D:\AI_Dev\WorkspaceOS\projects\midvoyage-portfolio\node_modules\next\dist\trace\trace.js:157:20)
+    at async D:\AI_Dev\WorkspaceOS\projects\midvoyage-portfolio\node_modules\next\dist\build\webpack\loaders\postcss-loader\src\index.js:55:22
+    at async Span.traceAsyncFn (D:\AI_Dev\WorkspaceOS\projects\midvoyage-portfolio\node_modules\next\dist\trace\trace.js:157:20)
+    at at (D:\AI_Dev\WorkspaceOS\projects\midvoyage-portfolio\node_modules\tailwindcss\dist\lib.js:38:1643)
+    at LazyResult.runOnRoot (D:\AI_Dev\WorkspaceOS\projects\midvoyage-portfolio\node_modules\next\node_modules\postcss\lib\lazy-result.js:329:16)
+    at LazyResult.runAsync (D:\AI_Dev\WorkspaceOS\projects\midvoyage-portfolio\node_modules\next\node_modules\postcss\lib\lazy-result.js:258:26)
+    at LazyResult.async (D:\AI_Dev\WorkspaceOS\projects\midvoyage-portfolio\node_modules\next\node_modules\postcss\lib\lazy-result.js:160:30)
+    at LazyResult.then (D:\AI_Dev\WorkspaceOS\projects\midvoyage-portfolio\node_modules\next\node_modules\postcss\lib\lazy-result.js:404:17)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async Span.traceAsyncFn (D:\AI_Dev\WorkspaceOS\projects\midvoyage-portfolio\node_modules\next\dist\trace\trace.js:157:20)
+    at async D:\AI_Dev\WorkspaceOS\projects\midvoyage-portfolio\node_modules\next\dist\build\webpack\loaders\postcss-loader\src\index.js:55:22
+    at async Span.traceAsyncFn (D:\AI_Dev\WorkspaceOS\projects\midvoyage-portfolio\node_modules\next\dist\trace\trace.js:157:20)
+    at at (file://D:\AI_Dev\WorkspaceOS\projects\midvoyage-portfolio\node_modules\tailwindcss\dist\lib.js:38:1643)
+    at LazyResult.runOnRoot (file://D:\AI_Dev\WorkspaceOS\projects\midvoyage-portfolio\node_modules\next\node_modules\postcss\lib\lazy-result.js:329:16)
+    at LazyResult.runAsync (file://D:\AI_Dev\WorkspaceOS\projects\midvoyage-portfolio\node_modules\next\node_modules\postcss\lib\lazy-result.js:258:26)
+    at LazyResult.async (file://D:\AI_Dev\WorkspaceOS\projects\midvoyage-portfolio\node_modules\next\node_modules\postcss\lib\lazy-result.js:160:30)
+    at LazyResult.then (file://D:\AI_Dev\WorkspaceOS\projects\midvoyage-portfolio\node_modules\next\node_modules\postcss\lib\lazy-result.js:404:17)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async Span.traceAsyncFn (file://D:\AI_Dev\WorkspaceOS\projects\midvoyage-portfolio\node_modules\next\dist\trace\trace.js:157:20)
+    at async (file://D:\AI_Dev\WorkspaceOS\projects\midvoyage-portfolio\node_modules\next\dist\build\webpack\loaders\postcss-loader\src\index.js:55:22)
+    at async Span.traceAsyncFn (file://D:\AI_Dev\WorkspaceOS\projects\midvoyage-portfolio\node_modules\next\dist\trace\trace.js:157:20)
+    at processResult (file://D:\AI_Dev\WorkspaceOS\projects\midvoyage-portfolio\node_modules\next\dist\compiled\webpack\bundle5.js:29:407086)
+    at <unknown> (file://D:\AI_Dev\WorkspaceOS\projects\midvoyage-portfolio\node_modules\next\dist\compiled\webpack\bundle5.js:29:408881)
+    at <unknown> (file://D:\AI_Dev\WorkspaceOS\projects\midvoyage-portfolio\node_modules\next\dist\compiled\loader-runner\LoaderRunner.js:1:8645)
+    at <unknown> (file://D:\AI_Dev\WorkspaceOS\projects\midvoyage-portfolio\node_modules\next\dist\compiled\loader-runner\LoaderRunner.js:1:5828)
+    at r.callback (file://D:\AI_Dev\WorkspaceOS\projects\midvoyage-portfolio\node_modules\next\dist\compiled\loader-runner\LoaderRunner.js:1:4039)
+    at <unknown> (file://D:\AI_Dev\WorkspaceOS\projects\midvoyage-portfolio\node_modules\next\dist\build\webpack\loaders\postcss-loader\src\index.js:122:37)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+[ 1032768ms] [ERROR] ./src/app/globals.css.webpack[javascript/auto]!=!./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[14].oneOf[10].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[14].oneOf[10].use[3]!./src/app/globals.css
+Error: It looks like you're trying to use `tailwindcss` directly as a PostCSS plugin. The PostCSS plugin has moved to a separate package, so to continue using Tailwind CSS with PostCSS you'll need to install `@tailwindcss/postcss` and update your PostCSS configuration. @ webpack-internal:///(pages-dir-browser)/./node_modules/next/dist/next-devtools/userspace/pages/pages-dev-overlay-setup.js:76
+[ 1032768ms] [ERROR] ./src/app/globals.css
+Error: It looks like you're trying to use `tailwindcss` directly as a PostCSS plugin. The PostCSS plugin has moved to a separate package, so to continue using Tailwind CSS with PostCSS you'll need to install `@tailwindcss/postcss` and update your PostCSS configuration.
+-- inner error --
+Error: It looks like you're trying to use `tailwindcss` directly as a PostCSS plugin. The PostCSS plugin has moved to a separate package, so to continue using Tailwind CSS with PostCSS you'll need to install `@tailwindcss/postcss` and update your PostCSS configuration.
+Generated code for D:\AI_Dev\WorkspaceOS\projects\midvoyage-portfolio\node_modules\next\dist\build\webpack\loaders\css-loader\src\index.js??ruleSet[1].rules[14].oneOf[10].use[2]!D:\AI_Dev\WorkspaceOS\projects\midvoyage-portfolio\node_modules\next\dist\build\webpack\loaders\postcss-loader\src\index.js??ruleSet[1].rules[14].oneOf[10].use[3]!D:\AI_Dev\WorkspaceOS\projects\midvoyage-portfolio\src\app\globals.css @ webpack-internal:///(pages-dir-browser)/./node_modules/next/dist/next-devtools/userspace/pages/pages-dev-overlay-setup.js:76
+[ 1032798ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3000/favicon.ico:0
