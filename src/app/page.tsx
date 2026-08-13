@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
-import WorkCard, { WorkCardProps } from "@/components/WorkCard";
+import WorkCard from "@/components/WorkCard";
+import { featuredWork } from "@/data/work";
 import Link from "next/link";
 
 /* ============================================================
@@ -19,56 +20,9 @@ export const metadata: Metadata = {
     "Solo founder. AI systems builder. Dispatches from the middle of figuring it out.",
 };
 
-// === WORK DATA — homepage featured (3) ===
-// Rewritten 2026-08-06 (M's call): the prior three entries — kuya-koks,
-// ra-bautista, graceland-farm — were unpaid engagements not to be presented as
-// client work, and ra-bautista was never permission-cleared. Do not re-add them.
-// Every entry below is own-operations work with a verifiable public link.
-const featuredWork: WorkCardProps[] = [
-  {
-    slug: "speed-to-lead",
-    eyebrow: "AI Systems · Lead Qualification",
-    title: "Speed-to-Lead — inbound qualifier",
-    description:
-      "Nine-node pipeline: form intake, LLM scoring against a rubric, hot/nurture routing, a personalised reply, an owner alert and a CRM write. 7.4 seconds end to end, verified across four logged executions. Ordering is enforced structurally — the CRM write is a graph dependency of the send steps, so a failed email can never lose the lead.",
-    tags: ["n8n", "Claude API", "Telegram", "SMTP", "SQLite"],
-    status: "live",
-    year: "2026",
-    featured: true,
-    showcaseLinks: [
-      { label: "Live at handlit.app", href: "https://handlit.app" },
-      { label: "Case Study", href: "/work/speed-to-lead" },
-    ],
-  },
-  {
-    slug: "review-reply-agent",
-    eyebrow: "AI Agents · Reputation",
-    title: "Review & Reply Agent",
-    description:
-      "Reads a customer review, escalates anything serious to the owner and drafts the rest for one-tap approval. It never posts on its own. Verified across three live executions averaging 3.48s — a 5-star queued, a food-poisoning-plus-legal-threat escalated, a child-illness complaint escalated.",
-    tags: ["n8n", "Claude API", "Escalation Rules"],
-    status: "live",
-    year: "2026",
-    showcaseLinks: [
-      { label: "Source Repo", href: "https://github.com/mvallautomations/review-reply-agent" },
-      { label: "Case Study", href: "/work/review-reply-agent" },
-    ],
-  },
-  {
-    slug: "inbox-triage-agent",
-    eyebrow: "AI Agents · Operations",
-    title: "Inbox Triage Agent",
-    description:
-      "Extracts quote details from an inbound email without inventing numbers, and escalates anything touching money or lawyers to a human. 3.19s per run against live executions. The constraint that matters is what it refuses to do unsupervised.",
-    tags: ["n8n", "Claude API", "Structured Extraction"],
-    status: "live",
-    year: "2026",
-    showcaseLinks: [
-      { label: "Source Repo", href: "https://github.com/mvallautomations/inbox-triage-agent" },
-      { label: "Case Study", href: "/work/inbox-triage-agent" },
-    ],
-  },
-];
+// === WORK DATA ===
+// The homepage selection comes from src/data/work.ts (featuredOnHome), in
+// the same explicit `order` as /work. One source, so the two cannot drift.
 
 const portfolioShowcaseLinks = [
   { label: "Portfolio Domain", href: "https://mvallarautomations.cc" },

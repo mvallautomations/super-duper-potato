@@ -7,20 +7,21 @@ import RunReplay from "@/components/RunReplay";
 import AgentSimulator from "@/components/AgentSimulator";
 import { demoRunsBySlug } from "@/lib/demo-adapters";
 import { simulatorConfigs } from "@/lib/simulator-configs";
+import { allWork, workBySlug, type WorkStatus } from "@/data/work";
 
 // Rewritten 2026-08-06 (M's call): kuya-koks, ra-bautista and graceland-farm
 // were unpaid engagements not to be presented as client work; ra-bautista was
 // never permission-cleared. Do not re-add them. Every entry is own-operations
 // work with a verifiable public link.
-const projects: Record<
+// Long-form case study copy. Title, eyebrow, tags, year and status all come
+// from src/data/work.ts so a card and its page can never disagree — that
+// disagreement is exactly what let three cards claim "Live" over placeholders.
+// This record carries only what is specific to the full page.
+const caseStudies: Record<
   string,
   {
-    title: string;
-    eyebrow: string;
+    /** Fuller than the card description, which stays in work.ts. */
     description: string;
-    status: string;
-    year: string;
-    tags: string[];
     /**
      * Long-form write-up. Present only on case studies that have real content
      * but no logged n8n runs to replay (the RunReplay path takes precedence).
@@ -31,49 +32,24 @@ const projects: Record<
   }
 > = {
   "speed-to-lead": {
-    title: "Speed-to-Lead — inbound qualifier",
-    eyebrow: "AI Systems · Lead Qualification",
     description:
       "A nine-node pipeline that takes an inbound enquiry from form submission to scored, routed, replied-to and logged in 7.4 seconds — verified across four logged executions, not a demo run. Ordering is enforced structurally rather than by convention: the CRM write is a graph dependency of the send steps, so a failed email can never lose the lead. Node references are explicit rather than positional, so rewiring cannot silently change behaviour. Hardened against malformed submissions after a blank POST was found to break the send stage.",
-    status: "Live",
-    year: "2026",
-    tags: ["n8n", "Claude API", "Telegram", "SMTP", "SQLite"],
   },
   "review-reply-agent": {
-    title: "Review & Reply Agent",
-    eyebrow: "AI Agents · Reputation",
     description:
       "Reads a customer review, escalates anything serious to the owner, and drafts the rest for one-tap approval. It never posts on its own — that constraint is the product, not a limitation. Verified across three live executions averaging 3.48 seconds: a five-star queued for approval, a two-star combining food poisoning with a legal threat escalated, a one-star about a child's illness escalated.",
-    status: "Live",
-    year: "2026",
-    tags: ["n8n", "Claude API", "Escalation Rules"],
   },
   "inbox-triage-agent": {
-    title: "Inbox Triage Agent",
-    eyebrow: "AI Agents · Operations",
     description:
       "Extracts quote details from an inbound email without inventing numbers, and escalates anything touching money or lawyers to a human. 3.19 seconds per run against live executions. What it refuses to do unsupervised is the part that makes it safe to run unsupervised.",
-    status: "Live",
-    year: "2026",
-    tags: ["n8n", "Claude API", "Structured Extraction"],
   },
   "content-repurposer-agent": {
-    title: "Content Repurposer Agent",
-    eyebrow: "AI Agents · Content",
     description:
       "Turns one piece of long-form work into platform-native posts, and gates its own output against brand-voice rules enforced in code rather than asked for in a prompt. If a draft breaks a rule, it does not ship. Prompts drift; a linter does not.",
-    status: "Live",
-    year: "2026",
-    tags: ["n8n", "Claude API", "Brand-Voice Linting"],
   },
   "handlit-agent-architect": {
-    title: "handlit Agent Architect",
-    eyebrow: "AI Agents · Browser",
     description:
       "A Chrome side-panel agent that studies a business's website and designs the custom chat agent it actually needs. Bring your own key — it runs on Ollama, OpenRouter, or any OpenAI-compatible endpoint, so nothing is locked to a single vendor and nothing is billed per seat.",
-    status: "Live",
-    year: "2026",
-    tags: ["Chrome Extension", "BYOK", "Ollama", "OpenRouter"],
   },
   // Added 2026-08-14. This page did not exist, so /work/foss-lead-engine was a
   // hard 404 that both work cards linked to. Facts below are taken from the
@@ -81,13 +57,8 @@ const projects: Record<
   // from lead-scraping-lab/foss-personal-os/README.md. The simulated-data note
   // is deliberate and must keep matching what the handlit page says.
   "foss-lead-engine": {
-    title: "Lead-Gen Engine — open-source core",
-    eyebrow: "AI Systems · Prospecting",
     description:
       "A prospecting pipeline that pulls real businesses from open data, scores each one against an ideal customer profile, writes an opening line, and stages the outreach. The open-source core replaced roughly $350 a month of SaaS with about 600 lines of dependency-free Python.",
-    status: "Live",
-    year: "2026",
-    tags: ["Python", "OpenStreetMap", "SQLite", "n8n"],
     sections: [
       {
         heading: "What it replaces",
@@ -142,8 +113,36 @@ const projectShowcaseLinks: Record<
 
 export const dynamicParams = false;
 
+/** How a status reads on the case study page itself. */
+const statusLabel: Record<WorkStatus, string> = {
+  live: "Live",
+  "in-progress": "In progress",
+  concept: "Concept",
+};
+
+/**
+ * Compose the page from the shared card data plus the long-form copy.
+ * Routes are generated from work.ts, so any project listed on a card is
+ * guaranteed to have a page — the 404 on /work/foss-lead-engine happened
+ * because that guarantee did not exist.
+ */
+function getProject(slug: string) {
+  const item = workBySlug[slug];
+  if (!item) return null;
+  const study = caseStudies[slug];
+  return {
+    title: item.title,
+    eyebrow: item.eyebrow,
+    tags: item.tags,
+    year: item.year,
+    status: statusLabel[item.status],
+    description: study?.description ?? item.description,
+    sections: study?.sections,
+  };
+}
+
 export function generateStaticParams() {
-  return Object.keys(projects).map((slug) => ({ slug }));
+  return allWork.map((item) => ({ slug: item.slug }));
 }
 
 export async function generateMetadata({
@@ -152,7 +151,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const project = projects[slug];
+  const project = getProject(slug);
   if (!project) return { title: "Not Found" };
 
   return {
@@ -167,7 +166,7 @@ export default async function CaseStudyPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const project = projects[slug];
+  const project = getProject(slug);
 
   if (!project) notFound();
 
