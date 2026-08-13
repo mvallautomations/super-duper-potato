@@ -21,6 +21,13 @@ const projects: Record<
     status: string;
     year: string;
     tags: string[];
+    /**
+     * Long-form write-up. Present only on case studies that have real content
+     * but no logged n8n runs to replay (the RunReplay path takes precedence).
+     * A project with neither falls through to the "in progress" placeholder,
+     * and its card must be marked status "in-progress" so the label matches.
+     */
+    sections?: { heading: string; body: string }[];
   }
 > = {
   "speed-to-lead": {
@@ -68,6 +75,42 @@ const projects: Record<
     year: "2026",
     tags: ["Chrome Extension", "BYOK", "Ollama", "OpenRouter"],
   },
+  // Added 2026-08-14. This page did not exist, so /work/foss-lead-engine was a
+  // hard 404 that both work cards linked to. Facts below are taken from the
+  // handlit page for the same system (handlit.app/systems/lead-engine.html) and
+  // from lead-scraping-lab/foss-personal-os/README.md. The simulated-data note
+  // is deliberate and must keep matching what the handlit page says.
+  "foss-lead-engine": {
+    title: "Lead-Gen Engine — open-source core",
+    eyebrow: "AI Systems · Prospecting",
+    description:
+      "A prospecting pipeline that pulls real businesses from open data, scores each one against an ideal customer profile, writes an opening line, and stages the outreach. The open-source core replaced roughly $350 a month of SaaS with about 600 lines of dependency-free Python.",
+    status: "Live",
+    year: "2026",
+    tags: ["Python", "OpenStreetMap", "SQLite", "n8n"],
+    sections: [
+      {
+        heading: "What it replaces",
+        body: "The core is about 600 lines of Python with no third-party dependencies. It stands in for four paid tools: a scraper at roughly $150 a month, a hosted scoring API at roughly $50, a hosted database at roughly $50, and a sending tool at roughly $97. The itemised list lives in the repo README, so the figure is a sum rather than an estimate made after the fact.",
+      },
+      {
+        heading: "Where the prospects come from",
+        body: "Extraction is a live query against the OpenStreetMap Overpass API. OpenStreetMap is open data under ODbL and Overpass is a public endpoint, so there is no key, no bill, and no terms-of-service problem. Google Maps, LinkedIn and Apollo all forbid scraping in their terms, which is the reason this pipeline does not touch them.",
+      },
+      {
+        heading: "What it keeps",
+        body: "Every run is written to SQLite: the prospects, the score each one was given, and the reason for it. Rejected prospects are recorded rather than dropped. If a scoring rule turns out to be wrong, it can be re-run against the same set instead of a fresh scrape.",
+      },
+      {
+        heading: "The audit log",
+        body: "A second table records one row per action taken against a lead, timestamped. When a prospect reaches outreach, the log shows which query found it, what it scored, and why. That is the part that makes the pipeline safe to leave running unattended.",
+      },
+      {
+        heading: "What the demo shows, and what it does not",
+        body: "The dashboard published on handlit.app runs on simulated data. The extraction, the scoring and the persistence are real code with a real database behind them, but a public demo page is not a good reason to scrape live businesses. The CSV export in the demo is genuine, so the shape of the output is the shape of the output.",
+      },
+    ],
+  },
 };
 
 const projectShowcaseLinks: Record<
@@ -90,6 +133,10 @@ const projectShowcaseLinks: Record<
   ],
   "handlit-agent-architect": [
     { label: "Source Repo", href: "https://github.com/mvallautomations/handlit-agent-architect" },
+  ],
+  "foss-lead-engine": [
+    { label: "Live at handlit.app", href: "https://handlit.app/systems/lead-engine.html" },
+    { label: "Interactive Demo", href: "https://handlit.app/demos/lead-dashboard/" },
   ],
 };
 
@@ -383,6 +430,45 @@ export default async function CaseStudyPage({
                   </p>
                   <RunReplay runs={demoRunsBySlug[slug]} />
                 </div>
+              </div>
+            ) : project.sections ? (
+              <div style={{ display: "grid", gap: "2.5rem" }}>
+                <p
+                  style={{
+                    fontFamily: "var(--font-dm-sans)",
+                    fontSize: "1.0625rem",
+                    lineHeight: 1.7,
+                    color: "var(--ink-secondary)",
+                    margin: 0,
+                  }}
+                >
+                  {project.description}
+                </p>
+
+                {project.sections.map((section) => (
+                  <div key={section.heading}>
+                    <p
+                      className="eyebrow"
+                      style={{
+                        marginBottom: "0.75rem",
+                        color: "var(--accent-terra)",
+                      }}
+                    >
+                      {section.heading}
+                    </p>
+                    <p
+                      style={{
+                        fontFamily: "var(--font-dm-sans)",
+                        fontSize: "1rem",
+                        lineHeight: 1.7,
+                        color: "var(--ink-secondary)",
+                        margin: 0,
+                      }}
+                    >
+                      {section.body}
+                    </p>
+                  </div>
+                ))}
               </div>
             ) : (
               <div
