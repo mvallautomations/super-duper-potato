@@ -4,8 +4,9 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build && node scripts/check-links.mjs",
+    "build": "next build && node scripts/check-links.mjs && node scripts/check-content.mjs",
     "check:links": "node scripts/check-links.mjs",
+    "check:content": "node scripts/check-content.mjs",
     "start": "next start",
     "lint": "eslint .",
     "devtools": "react-devtools"

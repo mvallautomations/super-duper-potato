@@ -89,7 +89,9 @@ const projectShowcaseLinks: Record<
   { label: string; href?: string }[]
 > = {
   "speed-to-lead": [
-    { label: "Live at handlit.app", href: "https://handlit.app" },
+    // See the note in src/data/work.ts: the 7.4s pipeline is not what runs on
+    // handlit.app, so this must not say "Live at handlit.app".
+    { label: "Offer at handlit.app", href: "https://handlit.app" },
     { label: "Interactive Demo", href: "https://handlit.app/demo/" },
     { label: "Case Study", href: "https://handlit.app/case-study-speed-to-lead" },
   ],

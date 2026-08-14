@@ -139,7 +139,12 @@ const work: WorkItem[] = [
     featured: true,
     featuredOnHome: true,
     showcaseLinks: [
-      { label: "Live at handlit.app", href: "https://handlit.app" },
+      // NOT "Live at handlit.app". The handlit.app form posts to a Cloudflare
+      // Function that sends a Telegram alert; the 7.4s pipeline is a separate
+      // self-hosted n8n workflow in a private repo. Conflating the two is an
+      // overstatement that already had to be corrected off her OnlineJobs
+      // profile once. The offer is what lives on handlit.app.
+      { label: "Offer at handlit.app", href: "https://handlit.app" },
       { label: "Interactive Demo", href: "https://handlit.app/demo/" },
       { label: "Case Study", href: "/work/speed-to-lead" },
     ],
