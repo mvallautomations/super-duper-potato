@@ -519,6 +519,31 @@ export default async function CaseStudyPage({
                 </Link>
               </div>
             )}
+
+            {/* The only bridge between the two brands. mid·voyage is the
+                build-in-public voice and stays that way; this one line is the
+                path for a reader who wants the commercial version. Keep it
+                quiet — a banner here would turn the whole site into a funnel. */}
+            <p
+              style={{
+                fontFamily: "var(--font-dm-sans)",
+                fontSize: "0.9375rem",
+                color: "var(--ink-secondary)",
+                lineHeight: 1.65,
+                marginTop: "3rem",
+                paddingTop: "1.5rem",
+                borderTop: "1px solid var(--border-light)",
+              }}
+            >
+              I build these for businesses at{" "}
+              <a
+                href="https://handlit.app"
+                style={{ color: "var(--ink-primary)" }}
+              >
+                handlit.app
+              </a>
+              .
+            </p>
           </div>
         </section>
       </main>
