@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 
@@ -240,9 +241,9 @@ export default function ServicesPage() {
             >
               The proof behind each service is my own operations — every system
               is tested on my own business first, and the numbers on the{" "}
-              <a href="/work" style={{ color: "var(--ink-primary)" }}>
+              <Link href="/work" style={{ color: "var(--ink-primary)" }}>
                 work page
-              </a>{" "}
+              </Link>{" "}
               come from logged runs, not projections.
             </p>
           </div>
