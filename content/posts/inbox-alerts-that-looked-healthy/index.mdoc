@@ -1,0 +1,47 @@
+---
+title: The Inbox Alerts That Looked Healthy
+status: draft
+excerpt: A Telegram parsing failure exposed the difference between a clean database row and an email someone has truly seen.
+tags:
+  - linkedin
+  - handlit
+  - inbox-automation
+coverImage: null
+coverAlt: ""
+createdAt: 2026-08-29T04:00:00.000Z
+updatedAt: 2026-08-29T04:00:00.000Z
+publishedAt: null
+archivedAt: null
+seoTitle: The Inbox Alerts That Looked Healthy
+seoDescription: How a Telegram parsing failure changed the design of my verified 3.19-second inbox triage workflow.
+---
+
+The database looked healthy. The two money-related alerts never arrived.
+
+Classification had worked. Extraction had worked. The records existed.
+
+## The failure lived after the database
+
+Telegram rejected the notifications because legacy Markdown treated the underscore in quote_request and invoice_chase as formatting.
+
+The two categories most likely to need human attention were the two categories nobody saw.
+
+## The fix separated storage from delivery
+
+I changed the workflow to use HTML parsing and escaped copies of every field sent to Telegram. Raw email remains untouched in storage.
+
+A regression run included quote_request plus angle brackets and an ampersand in the subject. The alert delivered.
+
+## The routing rules stay explicit
+
+Money and legal language always reach a human. High urgency reaches a human. A draft containing an unresolved price placeholder reaches a human. Malformed model output fails closed.
+
+Spam gets logged, then stays silent.
+
+## Speed is only the visible receipt
+
+Four published executions averaged 3.19 seconds.
+
+The workflow now logs first, routes second and keeps risky messages visible. The tested failure path is the stronger receipt.
+
+Built by handlit.

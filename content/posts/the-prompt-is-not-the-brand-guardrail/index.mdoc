@@ -1,0 +1,47 @@
+---
+title: The Prompt Is Not the Brand Guardrail
+status: draft
+excerpt: My Content Repurposer writes three formats, then checks vocabulary and structure in code before anything reaches the delivery queue.
+tags:
+  - linkedin
+  - handlit
+  - content-automation
+coverImage: null
+coverAlt: ""
+createdAt: 2026-08-29T04:00:00.000Z
+updatedAt: 2026-08-29T04:00:00.000Z
+publishedAt: null
+archivedAt: null
+seoTitle: The Prompt Is Not the Brand Guardrail
+seoDescription: A content workflow with deterministic checks after generation and a verified 7.08-second average runtime.
+---
+
+The prompt is not the brand guardrail.
+
+I built an n8n and Claude workflow to turn one finished source into a LinkedIn post, a five-slide carousel and a 30-second video script.
+
+## Generation is only the first pass
+
+Code checks the output afterward. The LinkedIn draft must stay between 90 and 230 words and end on a statement. The carousel must contain exactly five slides.
+
+A prohibited-term list checks the language.
+
+## Failed work enters a rewrite queue
+
+Anything failing the gate routes to Flag for Rewrite instead of Send Drafts.
+
+The workflow keeps the rejected draft for inspection. A guardrail should flag work, not erase it.
+
+## An adversarial source tested the gate
+
+I fed the workflow deliberately off-voice marketing copy. Two prohibited phrases survived the model. The LinkedIn draft also came back at 57 words.
+
+The code caught all three failures.
+
+## The measured result covers all three formats
+
+Two live runs averaged 7.08 seconds. The clean source passed. The adversarial source failed for the reasons the gate was built to catch.
+
+A prompt expresses taste. A post-generation check enforces the publishing boundary.
+
+Built by handlit.

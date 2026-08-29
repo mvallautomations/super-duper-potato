@@ -1,0 +1,49 @@
+---
+title: The Safest Review Agent Never Posts
+status: draft
+excerpt: Why my Review & Reply Agent automates classification and drafting while leaving every public response under human control.
+tags:
+  - linkedin
+  - handlit
+  - review-automation
+coverImage: null
+coverAlt: ""
+createdAt: 2026-08-29T04:00:00.000Z
+updatedAt: 2026-08-29T04:00:00.000Z
+publishedAt: null
+archivedAt: null
+seoTitle: The Safest Review Agent Never Posts
+seoDescription: A review workflow built around escalation rules, human approval and a verified 3.48-second average runtime.
+---
+
+The safest review agent never posts a reply.
+
+I built an n8n and Claude workflow to read a customer review, check its risk, then queue a draft or escalate it to the owner.
+
+## The stopping rule is the product
+
+A rating of three or below escalates. So do allegations involving illness, injury, hygiene, discrimination, staff conduct, legal action, chargebacks, regulators or press.
+
+Malformed model output fails closed. The workflow escalates instead of guessing.
+
+## Three runs tested three different boundaries
+
+Three live executions averaged 3.48 seconds from intake to delivered alert.
+
+A five-star review reached the approval queue. A two-star review combining food poisoning with a legal threat reached the owner. A one-star complaint involving a child’s illness reached the owner with no suggested response.
+
+## Logging comes before alerting
+
+Every review enters the database before Telegram sends an alert. A notification failure never erases the source event.
+
+Graph dependencies enforce the order. Canvas position does not.
+
+## The reversible work belongs to automation
+
+The agent handles reading, classification, routing and drafting.
+
+The public reply stays with the person responsible for the business.
+
+The boundary is the product.
+
+Built by handlit.
