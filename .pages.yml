@@ -1,0 +1,120 @@
+# Pages CMS configuration (.pages.yml)
+# Documentation: https://pagescms.org/docs/configuration
+
+media:
+  input: public/images/blog
+  output: /images/blog
+
+content:
+  - name: posts
+    label: Blog posts
+    type: collection
+    path: content/posts
+    filename: "{slug}/index.mdoc"
+    format: yaml-frontmatter
+    subfolders: true
+    operations:
+      create: true
+      delete: false
+      rename: false
+    view:
+      fields:
+        - title
+        - status
+        - publishedAt
+        - updatedAt
+      primary: title
+      sort:
+        - publishedAt
+      default:
+        sort: publishedAt
+        order: desc
+      search:
+        - title
+        - excerpt
+        - tags
+    fields:
+      - name: title
+        label: Title
+        type: string
+        required: true
+
+      - name: status
+        label: Status
+        type: select
+        options:
+          values:
+            - label: Draft
+              name: draft
+            - label: Published
+              name: published
+            - label: Scheduled
+              name: scheduled
+            - label: Archived
+              name: archived
+        default: draft
+        description: Only published posts whose publish time has arrived appear publicly.
+
+      - name: excerpt
+        label: Excerpt
+        type: text
+        required: true
+
+      - name: tags
+        label: Tags
+        type: string
+        list: true
+
+      - name: coverImage
+        label: Cover image
+        type: image
+        options:
+          categories:
+            - image
+
+      - name: coverAlt
+        label: Cover image alt text
+        type: string
+        description: Describe the image for readers using screen readers.
+
+      - name: createdAt
+        label: Created at
+        type: date
+        required: true
+        options:
+          time: true
+
+      - name: updatedAt
+        label: Updated at
+        type: date
+        required: true
+        options:
+          time: true
+
+      - name: publishedAt
+        label: Publish date and time
+        type: date
+        default: ""
+        description: For scheduled posts, this is when the article becomes public.
+        options:
+          time: true
+
+      - name: archivedAt
+        label: Archived at
+        type: date
+        default: ""
+        description: Set when archiving an article.
+        options:
+          time: true
+
+      - name: seoTitle
+        label: SEO title
+        type: string
+
+      - name: seoDescription
+        label: SEO description
+        type: text
+
+      - name: body
+        label: Article
+        type: rich-text

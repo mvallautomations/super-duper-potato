@@ -1,0 +1,31 @@
+---
+title: Pages CMS Compatibility Smoke Test
+status: draft
+excerpt: An isolated test post to verify Pages CMS schema mapping, YAML frontmatter integrity, and nested directory preservation.
+tags:
+  - testing
+  - cms
+  - verification
+coverImage: null
+coverAlt: "Test placeholder cover image description"
+createdAt: 2026-08-29T10:00:00.000Z
+updatedAt: 2026-08-29T10:00:00.000Z
+publishedAt: null
+archivedAt: null
+seoTitle: Pages CMS Compatibility Smoke Test
+seoDescription: Isolated smoke test fixture verifying Pages CMS frontmatter round-trip behavior and draft isolation.
+---
+
+This is an isolated smoke test post for Pages CMS compatibility verification.
+
+## Purpose
+
+The purpose of this fixture is to verify:
+
+1. YAML frontmatter parsing and preservation.
+2. Directory structure retention under content/posts/test-smoke-post/index.mdoc.
+3. Strict draft status isolation so this content does not appear in production static export.
+
+## Verification
+
+When built via npm run build, this article must remain private and excluded from public blog lists and route generation.
