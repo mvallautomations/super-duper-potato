@@ -114,7 +114,7 @@ export default function HomePage() {
                   color: "var(--ink-muted)",
                 }}
               >
-                Pre-revenue · Building in public
+                Building in public
               </span>
             </div>
           </div>
