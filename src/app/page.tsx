@@ -24,14 +24,6 @@ export const metadata: Metadata = {
 // The homepage selection comes from src/data/work.ts (featuredOnHome), in
 // the same explicit `order` as /work. One source, so the two cannot drift.
 
-const portfolioShowcaseLinks = [
-  { label: "Portfolio Domain", href: "https://mvallarautomations.cc" },
-  { label: "GitHub Profile", href: "https://github.com/mvallautomations" },
-  { label: "All Work", href: "/work" },
-  { label: "Blog Notes", href: "/blog" },
-  { label: "Contact", href: "mailto:mvallarautomates@gmail.com" },
-];
-
 export default function HomePage() {
   return (
     <>
@@ -121,40 +113,6 @@ export default function HomePage() {
         </section>
 
         {/* Divider */}
-        <div className="mv-container">
-          <hr className="mv-rule" />
-        </div>
-
-        <section
-          style={{
-            paddingBlock: "clamp(2rem, 5vw, 4rem)",
-          }}
-        >
-          <div className="mv-container">
-            <p className="eyebrow" style={{ marginBottom: "1rem" }}>
-              Showcase links
-            </p>
-            <div
-              style={{
-                display: "flex",
-                flexWrap: "wrap",
-                gap: "0.65rem",
-              }}
-            >
-              {portfolioShowcaseLinks.map((item) => (
-                <Link
-                  key={item.label}
-                  href={item.href}
-                  className="mv-btn"
-                  style={{ padding: "0.55rem 1rem", minHeight: "40px" }}
-                >
-                  {item.label}
-                </Link>
-              ))}
-            </div>
-          </div>
-        </section>
-
         <div className="mv-container">
           <hr className="mv-rule" />
         </div>

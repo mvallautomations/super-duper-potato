@@ -8,9 +8,9 @@ Source of truth (do not edit these copies — re-copy from source):
 
 | File | Canonical source |
 |---|---|
-| `review-reply-agent.json` | `~/m-2nd-brain/code/review-reply-agent/evidence/runs.json` |
-| `inbox-triage-agent.json` | `~/m-2nd-brain/code/inbox-triage-agent/evidence/runs.json` |
-| `content-repurposer-agent.json` | `~/m-2nd-brain/code/content-repurposer-agent/evidence/runs.json` |
+| `review-reply-agent.json` | `mvallautomations/review-reply-agent` → `evidence/runs.json` |
+| `inbox-triage-agent.json` | `mvallautomations/inbox-triage-agent` → `evidence/runs.json` |
+| `content-repurposer-agent.json` | `mvallautomations/content-repurposer-agent` → `evidence/runs.json` |
 
 Every number shown on `/work/<slug>` replay UIs comes from these files.
 Never hand-edit a latency, rating, or output — if a re-run produces new

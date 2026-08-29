@@ -5,6 +5,7 @@ import {
   DM_Serif_Display,
   JetBrains_Mono,
 } from "next/font/google";
+import MotionEnhancements from "@/components/MotionEnhancements";
 import "./globals.css";
 
 /* ============================================================
@@ -97,6 +98,8 @@ export default function RootLayout({
       `}
     >
       <body className="parchment-grain">
+        <div className="route-loader" aria-hidden="true" />
+        <MotionEnhancements />
         {children}
       </body>
     </html>

@@ -27,7 +27,7 @@
 
 import { createServer } from "node:http";
 import { createReadStream } from "node:fs";
-import { stat, readdir, readFile } from "node:fs/promises";
+import { stat, readdir } from "node:fs/promises";
 import { join, extname, resolve, relative } from "node:path";
 
 const OUT = resolve(process.argv[2] ?? "out");

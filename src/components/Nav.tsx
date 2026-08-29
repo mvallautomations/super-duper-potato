@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -76,6 +77,15 @@ export default function Nav() {
               textDecoration: "none",
             }}
           >
+            <span className="brand-avatar" aria-hidden="true">
+              <Image
+                src="/images/about/mishael-avatar.png"
+                alt=""
+                width={256}
+                height={256}
+                priority
+              />
+            </span>
             <span
               style={{
                 display: "inline-block",
@@ -86,7 +96,8 @@ export default function Nav() {
                 flexShrink: 0,
               }}
             />
-            <span>mid·voyage</span>
+            <span className="brand-full">mid·voyage</span>
+            <span className="brand-monogram" aria-hidden="true">mv</span>
           </Link>
 
           <div
@@ -283,9 +294,36 @@ export default function Nav() {
       </nav>
 
       <style>{`
-        @media (max-width: 640px) {
+        .brand-avatar {
+          position: relative;
+          width: 30px;
+          height: 30px;
+          overflow: hidden;
+          flex: 0 0 30px;
+          border: 1px solid var(--border-light);
+          border-radius: 50%;
+          background: var(--bg-surface);
+        }
+        .brand-avatar img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+        .brand-monogram { display: none; }
+        @media (max-width: 860px) {
           .desktop-nav { display: none !important; }
           .mobile-menu-btn { display: flex !important; }
+        }
+        @media (max-width: 480px) {
+          .brand-full { display: none; }
+          .brand-monogram {
+            display: inline;
+            font-family: var(--font-jetbrains);
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+          }
         }
       `}</style>
     </header>

@@ -1,6 +1,14 @@
 # CLAUDE.md
 
+@AGENTS.md
+
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+> **Read [`AGENTS.md`](AGENTS.md) first.** It is the current operational source of
+> truth for the CMS work completed so far, the content workflow, navigation map,
+> security and monetization guardrails, validation status, deployment migration,
+> rollback requirements, and remaining phases. Where this file is stale or less
+> specific, follow `AGENTS.md` and update both documents deliberately.
 
 ## Project
 
@@ -8,8 +16,7 @@ Personal portfolio for Mishael Vallar. Brand: **mid·voyage** (the content arm; 
 separate delivery company — everything that sells signs off handlit, this site documents).
 Live at `https://mvallarautomations.cc`.
 
-Real path: `/home/vall/m-2nd-brain/code/midvoyage-portfolio` (own git repo,
-remote `github.com/mvallautomations/midvoyage-portfolio`).
+Repository: `github.com/mvallautomations/midvoyage-portfolio`.
 
 ## Deploy — Cloudflare Pages, NOT git-connected
 
@@ -48,7 +55,7 @@ the thing they catch already shipped to the live site once (see below).
 
 ## Architecture
 
-```
+```text
 src/
   app/              # Next.js App Router pages
     globals.css     # Design tokens + all global styles

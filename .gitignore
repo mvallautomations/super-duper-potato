@@ -17,9 +17,6 @@ yarn-error.log*
 .env.test.local
 .env.production.local
 
-# Vercel
-.vercel
-
 # TypeScript
 *.tsbuildinfo
 next-env.d.ts
@@ -35,3 +32,9 @@ Thumbs.db
 *.swo
 
 .vercel
+
+# Generated browser-test logs contain machine-specific paths
+.playwright-mcp/
+
+# Claude Code permissions are specific to this machine
+.claude/settings.local.json

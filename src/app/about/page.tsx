@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
-import Nav from "@/components/Nav";
+import Image from "next/image";
 import Footer from "@/components/Footer";
+import Nav from "@/components/Nav";
+import styles from "./AboutHero.module.css";
 
 export const metadata: Metadata = {
   title: "About",
@@ -13,41 +15,36 @@ export default function AboutPage() {
     <>
       <Nav />
       <main>
-        <section
-          style={{
-            paddingTop: "clamp(3.5rem, 8vw, 6rem)",
-            paddingBottom: "clamp(2.5rem, 6vw, 5rem)",
-          }}
-        >
-          <div className="mv-container" style={{ maxWidth: "76ch" }}>
-            <p className="eyebrow" style={{ marginBottom: "1rem" }}>
-              About
-            </p>
-            <h1
-              style={{
-                fontSize: "clamp(2.1rem, 6vw, 3.6rem)",
-                marginBottom: "1.25rem",
-                maxWidth: "16ch",
-              }}
-            >
-              Building from{" "}
-              <span className="ghost-word" style={{ fontSize: "inherit" }}>
-                real constraints.
-              </span>
-            </h1>
-            <p
-              style={{
-                fontSize: "1.05rem",
-                color: "var(--ink-secondary)",
-                lineHeight: 1.75,
-                marginBottom: "2.25rem",
-                maxWidth: "62ch",
-              }}
-            >
-              I am Mishael Vallar, a solo founder from the Philippines. I build
-              practical AI automations, internal ops systems, and websites for
-              businesses that need clarity and execution, not hype.
-            </p>
+        <section className={styles.heroSection}>
+          <div className={`mv-container ${styles.hero}`}>
+            <div className={styles.copy}>
+              <p className="eyebrow" style={{ marginBottom: "1rem" }}>
+                About
+              </p>
+              <h1 className={styles.title}>
+                Building from real{" "}
+                <span className="ghost-word" style={{ fontSize: "inherit" }}>
+                  constraints.
+                </span>
+              </h1>
+              <p className={styles.intro}>
+                I am Mishael Vallar, a solo founder from the Philippines. I build
+                practical AI automations, internal ops systems, and websites for
+                businesses that need clarity and execution, not hype.
+              </p>
+            </div>
+
+            <div className={styles.portraitWrap}>
+              <Image
+                className={styles.portrait}
+                src="/images/about/mishael-laptop-transparent.png"
+                alt="Mishael Vallar sitting cross-legged while working on a laptop"
+                width={896}
+                height={1152}
+                priority
+                sizes="(max-width: 760px) 88vw, 430px"
+              />
+            </div>
           </div>
         </section>
 

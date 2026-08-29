@@ -5,7 +5,6 @@
 /* ============================================================================
    mid·voyage — Canonical Brand Theme (SINGLE SOURCE OF TRUTH)
    Owner: Mishael Vallar (M.V.) — systems builder & AI consultant
-   Path:  I:\M-AIOS\brand\midvoyage-theme.css
    Usage: @import this file (or <link>) in EVERY dev tool, project, and content asset.
           Update branding here once — it propagates everywhere.
 
@@ -72,7 +71,7 @@
   --ink-primary:   #F0EDE7;
   --ink-secondary: #A8A49C;
   --ink-muted:     #6B6760;
-  --ink-ghost:     #3D3C3F;
+  --ink-ghost:     #B8B4AE;
   --accent-terra:  #E07A61;   /* warmer terra for dark */
   --accent-sage:   #8AAF91;
   --border-subtle: rgba(240,237,231,0.08);
@@ -174,9 +173,16 @@ code, pre, .mono, .label, nav, .badge, .caption { font-family: var(--font-mono);
   color: var(--ink-primary);
   text-decoration: none;
   cursor: pointer;
-  transition: border-color var(--dur-fast) var(--ease-out), background var(--dur-fast) var(--ease-out);
+  transition:
+    border-color var(--dur-fast) var(--ease-out),
+    background var(--dur-fast) var(--ease-out),
+    transform var(--dur-fast) var(--ease-out);
 }
-.btn:hover, .mv-btn:hover { border-color: var(--accent-terra); }
+.btn:hover, .mv-btn:hover {
+  border-color: var(--accent-terra);
+  transform: translateY(-2px);
+}
+.btn:active, .mv-btn:active { transform: translateY(0); }
 
 /* ---- Animations ---------------------------------------------------------- */
 /* Transform-only: animating opacity from 0 hid the hero h1 from LCP timing
@@ -189,8 +195,49 @@ code, pre, .mono, .label, nav, .badge, .caption { font-family: var(--font-mono);
 .fade-up {
   animation: fadeIn var(--dur-slow) var(--ease-out) forwards;
 }
+.route-loader {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 1000;
+  height: 3px;
+  overflow: hidden;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity var(--dur-fast) var(--ease-out);
+}
+.route-loader::after {
+  content: "";
+  display: block;
+  width: 38%;
+  height: 100%;
+  background: var(--accent-terra);
+  transform: translateX(-110%);
+}
+.is-route-loading .route-loader { opacity: 1; }
+.is-route-loading .route-loader::after { animation: routeProgress 800ms var(--ease-out) infinite; }
+@keyframes routeProgress { to { transform: translateX(365%); } }
+
+.motion-ready .scroll-reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 520ms var(--ease-out), transform 520ms var(--ease-out);
+}
+.motion-ready .scroll-reveal.is-visible { opacity: 1; transform: translateY(0); }
+
+@media (hover: hover) {
+  a:not(.mv-btn) {
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.25em;
+    transition: color var(--dur-fast) var(--ease-out), text-underline-offset var(--dur-fast) var(--ease-out);
+  }
+  a:not(.mv-btn):hover { text-underline-offset: 0.38em; }
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .fade-up { animation: none; }
+  html { scroll-behavior: auto; }
+  .fade-up, .is-route-loading .route-loader::after { animation: none; }
+  .motion-ready .scroll-reveal { opacity: 1; transform: none; transition: none; }
+  .card:hover, .mv-card:hover, .btn:hover, .mv-btn:hover { transform: none; }
 }
 
 /* ============================================================================

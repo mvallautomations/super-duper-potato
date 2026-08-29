@@ -1,35 +1,69 @@
-export interface BlogPost {
+import type { Node } from "@markdoc/markdoc";
+import { createReader } from "@keystatic/core/reader";
+import keystaticConfig from "../../keystatic.config";
+
+const reader = createReader(process.cwd(), keystaticConfig);
+
+export type BlogPostStatus = "draft" | "published" | "scheduled" | "archived";
+
+export interface BlogPostSummary {
   slug: string;
   title: string;
-  date: string;
+  status: BlogPostStatus;
   excerpt: string;
-  tags: string[];
-  relatedWork?: string;
+  tags: readonly string[];
+  coverImage: string | null;
+  coverAlt: string;
+  createdAt: string;
+  updatedAt: string;
+  publishedAt: string | null;
+  archivedAt: string | null;
+  seoTitle: string;
+  seoDescription: string;
 }
 
-const posts: BlogPost[] = [
-  {
-    slug: "zero-budget-build-stack",
-    title: "My Zero-Budget Build Stack in 2026",
-    date: "2026-03-27",
-    excerpt:
-      "The exact free tools and constraints I use to ship websites and AI workflows as a solo builder.",
-    tags: ["stack", "solo-founder", "workflow"],
-  },
-  {
-    slug: "why-mid-voyage-exists",
-    title: "Why mid.voyage Exists",
-    date: "2026-03-26",
-    excerpt:
-      "A working notebook for experiments, client constraints, and honest notes from building in public.",
-    tags: ["notes", "portfolio", "build-in-public"],
-  },
-];
+export type BlogPost = BlogPostSummary & { content: { node: Node } };
 
-export function getAllPosts(): BlogPost[] {
-  return [...posts].sort((a, b) => b.date.localeCompare(a.date));
+function isPublicPost(post: BlogPostSummary, now: Date): boolean {
+  if (post.status !== "published" && post.status !== "scheduled") return false;
+  if (!post.publishedAt) return false;
+  return new Date(post.publishedAt).getTime() <= now.getTime();
 }
 
-export function getPostBySlug(slug: string): BlogPost | undefined {
-  return posts.find((post) => post.slug === slug);
+function toSummary(post: BlogPost): BlogPostSummary {
+  const { content, ...summary } = post;
+  void content;
+  return summary;
+}
+
+export async function getAllPosts({
+  includeNonPublic = false,
+  now = new Date(),
+}: {
+  includeNonPublic?: boolean;
+  now?: Date;
+} = {}): Promise<BlogPostSummary[]> {
+  const slugs = await reader.collections.posts.list();
+  const entries = await Promise.all(
+    slugs.map((slug) => getPostBySlug(slug, { includeNonPublic: true, now })),
+  );
+
+  return entries
+    .flatMap((post) => (post ? [post] : []))
+    .filter((post) => includeNonPublic || isPublicPost(post, now))
+    .map(toSummary)
+    .sort((a, b) => (b.publishedAt ?? b.createdAt).localeCompare(a.publishedAt ?? a.createdAt));
+}
+
+export async function getPostBySlug(
+  slug: string,
+  { includeNonPublic = false, now = new Date() }: { includeNonPublic?: boolean; now?: Date } = {},
+): Promise<BlogPost | undefined> {
+  const post = await reader.collections.posts.read(slug);
+  if (!post) return undefined;
+
+  const content = typeof post.content === "function" ? await post.content() : post.content;
+  const result: BlogPost = { slug, ...post, content };
+  if (!includeNonPublic && !isPublicPost(result, now)) return undefined;
+  return result;
 }

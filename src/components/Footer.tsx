@@ -3,6 +3,17 @@
    Minimal editorial. Mono text. Terracotta dot mark.
    ============================================================ */
 
+import Link from "next/link";
+import SocialLinks from "./SocialLinks";
+
+const footerLinks = [
+  { href: "/", label: "Home" },
+  { href: "/work", label: "Work" },
+  { href: "/services", label: "Services" },
+  { href: "/about", label: "About" },
+  { href: "/blog", label: "Blog" },
+];
+
 export default function Footer() {
   const year = new Date().getFullYear();
 
@@ -19,10 +30,10 @@ export default function Footer() {
         <div
           style={{
             display: "flex",
-            alignItems: "center",
+            alignItems: "flex-start",
             justifyContent: "space-between",
             flexWrap: "wrap",
-            gap: "1rem",
+            gap: "1.5rem 2rem",
           }}
         >
           {/* Brand */}
@@ -56,6 +67,39 @@ export default function Footer() {
               mid·voyage by Mishael Vallar
             </span>
           </div>
+
+          <nav aria-label="Footer navigation">
+            <ul
+              style={{
+                display: "flex",
+                flexWrap: "wrap",
+                gap: "0.75rem 1.25rem",
+                listStyle: "none",
+                margin: 0,
+                padding: 0,
+              }}
+            >
+              {footerLinks.map((link) => (
+                <li key={link.href}>
+                  <Link
+                    href={link.href}
+                    style={{
+                      fontFamily: "var(--font-jetbrains)",
+                      fontSize: "0.65rem",
+                      letterSpacing: "0.08em",
+                      textTransform: "uppercase",
+                      color: "var(--ink-muted)",
+                      textDecoration: "none",
+                    }}
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
+
+          <SocialLinks />
 
           {/* Right side: copyright + location */}
           <div
