@@ -1,90 +1,104 @@
 ---
-title: when you realize that faster doesn't always mean better.
+title: Why I Kept the Slower Number
 status: draft
-excerpt: I built a 7.4-second lead workflow because years of live operations and solo service work taught me what delay costs.
+excerpt: The first version finished in 6.75 seconds. The safer version took 7.4. I kept the slower number because it describes the system I would hand over.
 tags:
   - linkedin
   - handlit
   - lead-qualification
-coverImage: null
-coverAlt: ""
+coverImage: /images/blog/why-i-kept-the-slower-number/cover.png
+coverAlt: "An editorial cover comparing a discarded 6.75-second test with a completed 7.4-second record-first workflow."
 createdAt: 2026-08-29T04:00:00.000Z
-updatedAt: 2026-08-29T14:30:00.000Z
+updatedAt: 2026-08-30T00:00:00.000Z
 publishedAt: null
 archivedAt: null
-seoTitle: when you realize that faster doesn't always mean better.
-seoDescription: The operational history, failure order and end-to-end evidence behind my 7.4-second lead workflow.
+seoTitle: Why I Kept the Slower Number
+seoDescription: Why I chose a verified 7.4-second record-first lead workflow over a faster but less dependable 6.75-second version.
 ---
 
-An enquiry arrives at 11 p.m.
+The first version finished in 6.75 seconds.
 
-The reply goes out at 10 a.m.
+The safer version took 7.4.
 
-By then, the person has hired someone else.
+I kept the slower number because the first one measured speed before I fixed the part most likely to lose the lead.
 
-Speed-to-Lead began with this ordinary gap. No dramatic AI problem. No need for a robot salesperson. A message arrived outside working hours and waited in the wrong place.
+## The metric rewarded the wrong finish line
 
-## Delay followed me through different kinds of work
+A fast reply looks impressive in a demonstration.
+
+A missing lead does not.
+
+My first workflow treated the email reply, Telegram alert and database record as neighbouring steps. The timer stopped when the workflow finished, so 6.75 seconds looked like the better result.
+
+Then I looked at the order more closely.
+
+The reply and alert were able to leave before the lead had a durable record. If either message succeeded while the database write failed, the customer would think the enquiry was moving while the owner had no dependable record to follow.
+
+The workflow was fast. The hand-off was fragile.
+
+## Delay was familiar before I built the workflow
 
 I started in technical support, then moved into real-time operations and training.
 
 On a support floor, delay is visible. Calls stack up. Coverage shifts. One late hand-off changes the next hour.
 
-Years later, I ran my own personal training practice. The work included intake, assessment, scheduling, progress records and billing. Retention depended on follow-up as much as the session itself.
+Later, running a personal training practice meant handling intake, assessment, scheduling, progress records and billing around the visible work. Follow-up was part of the service, even when nobody saw it happening.
 
-Different industries, same pattern: the work often enters before the person has time to process it.
+Different work, same pattern: an enquiry often arrives before the person responsible has time to process it.
 
 I built Speed-to-Lead to protect the first response without pretending every enquiry deserves the same answer.
 
-## A fast reply still needs a reason
+## The record now comes first
 
-The workflow begins with a form.
+The workflow begins with a form submission.
 
-It checks the submission, scores the lead against a written set of rules and returns a reason with the score.
+It checks the submission, scores the lead against written rules and records a reason for the score. One logged run scored a lead 9 out of 10 and stated why.
 
-One logged run scored a lead 9 out of 10 and explained why.
+Hot and nurture leads take different routes. Each receives a reply suited to its route. The owner receives a Telegram alert with the same context.
 
-Hot and nurture leads follow different paths. Each receives a reply matched to its route. The owner receives an alert with the same context.
+Pricing and final qualification stay with the owner.
 
-The system helps with timing and sorting. A person keeps pricing and final qualification.
+The important change sits earlier in the sequence. Both send paths now depend on the database write.
 
-## I nearly optimised the wrong finish line
-
-A fast email looks impressive in a demo.
-
-A missing lead does not.
-
-The first structure treated the reply, phone alert and database record as neighbouring steps. I changed the order so both send paths depend on the database write.
-
-The lead enters the customer database before the reply or alert leaves the workflow.
+The lead enters the customer record before the reply or alert leaves the workflow.
 
 If email fails, the record remains. If Telegram fails, the record remains.
 
-The send is no longer the finish line. Durable capture is.
+The send stopped being the finish line. Durable capture became the finish line.
 
-## Four executions established the current number
+## Four end-to-end runs established the number
 
-The certified workflow ran end to end across four logged executions.
+The revised workflow ran end to end across four logged executions.
 
 The public figure is 7.4 seconds, taken from the final record-first order.
 
-An earlier 6.75-second run belonged to the old structure. It was faster, but it measured the version before the safer dependency was added.
+The earlier 6.75-second result belongs to the old structure. It measured the workflow before the safer dependency was added.
 
-I kept the slower number because it describes the system I would hand over.
+I kept 7.4 because it describes the version I would hand over.
 
-I later installed the workflow from scratch on a clean n8n instance. The test fired a real test message and required a real Telegram message ID before it passed.
+That distinction matters. A benchmark earns trust only when it measures the system someone will receive, not the version with the most flattering timer.
 
-## The lesson is older than the software
+## A clean install had to produce a real receipt
 
-Real-time operations taught me to watch the queue.
+The workflow later went through a fresh installation on a clean n8n instance.
 
-Training taught me to write the process so someone else was able to follow it.
+The test fired a real test message. It did not pass until the run returned a real Telegram message ID.
 
-Running a solo service practice taught me how much follow-up hides behind the visible work.
+This moved the proof beyond a healthy-looking workflow screen. The result showed the message had reached the service responsible for delivering it.
 
-Speed-to-Lead brings those lessons into one small system.
+Green nodes are useful. A delivery receipt is better.
 
-It answers quickly, records first and leaves the decision with the owner.
+## Speed still needs a boundary
+
+The workflow handles timing, sorting, recording and notification.
+
+It does not negotiate a price. It does not make the final sales decision. It does not pretend a score replaces judgement.
+
+Its job is narrower: receive the enquiry, preserve the record, send the appropriate first response and place the context in front of the owner.
+
+The fastest number would have made the cleaner headline.
+
+The slower number tells the truth about the system.
 
 Useful speed still leaves a trail.
 
