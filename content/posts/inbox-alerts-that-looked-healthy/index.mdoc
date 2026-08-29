@@ -1,7 +1,7 @@
 ---
-title: The Inbox Alerts That Looked Healthy
+title: The Inbox Alerts Looked Healthy
 status: draft
-excerpt: A Telegram parsing failure exposed the difference between a clean database row and an email someone has truly seen.
+excerpt: Years of managing live queues taught me to distrust a clean dashboard when the important message never reached a person.
 tags:
   - linkedin
   - handlit
@@ -9,39 +9,81 @@ tags:
 coverImage: null
 coverAlt: ""
 createdAt: 2026-08-29T04:00:00.000Z
-updatedAt: 2026-08-29T04:00:00.000Z
+updatedAt: 2026-08-29T14:30:00.000Z
 publishedAt: null
 archivedAt: null
-seoTitle: The Inbox Alerts That Looked Healthy
-seoDescription: How a Telegram parsing failure changed the design of my verified 3.19-second inbox triage workflow.
+seoTitle: The Inbox Alerts Looked Healthy
+seoDescription: A hidden alert failure, a 3.19-second inbox workflow and the queue-management lesson behind the fix.
 ---
 
-The database looked healthy. The two money-related alerts never arrived.
+The database looked healthy.
 
-Classification had worked. Extraction had worked. The records existed.
+The two messages about money never reached a person.
 
-## The failure lived after the database
+Both emails had been read. Both had been classified. Both had clean records in the table.
 
-Telegram rejected the notifications because legacy Markdown treated the underscore in quote_request and invoice_chase as formatting.
+The final alert had failed.
 
-The two categories most likely to need human attention were the two categories nobody saw.
+I recognised the shape of the problem before I knew the cause.
 
-## The fix separated storage from delivery
+## A queue is only honest when attention reaches the right place
 
-I changed the workflow to use HTML parsing and escaped copies of every field sent to Telegram. Raw email remains untouched in storage.
+Early in my career, I worked in technical support and later handled real-time queue operations on a busy support floor.
 
-A regression run included quote_request plus angle brackets and an ampersand in the subject. The alert delivered.
+The work was less glamorous than the dashboard made it look. A queue might appear stable while one difficult case sat too long. A break plan might look efficient while the floor lost coverage at the wrong minute.
 
-## The routing rules stay explicit
+Numbers describe movement. They do not prove the right person saw the right problem.
 
-Money and legal language always reach a human. High urgency reaches a human. A draft containing an unresolved price placeholder reaches a human. Malformed model output fails closed.
+The same tension returned when I built an Inbox Triage Agent for my own operations.
 
-Spam gets logged, then stays silent.
+I wanted fewer interruptions, but I did not want money, legal language or urgent work buried inside a quiet inbox.
 
-## Speed is only the visible receipt
+## The build had a simple promise
 
-Four published executions averaged 3.19 seconds.
+The workflow reads an inbound email, decides what kind of message it is and pulls out useful details.
 
-The workflow now logs first, routes second and keeps risky messages visible. The tested failure path is the stronger receipt.
+For a quote request, it looks for the service, quantity, deadline and budget. Missing information stays missing. The system does not invent a number to make the record look complete.
+
+Spam is logged without an alert.
+
+Refunds, chargebacks, overdue invoices, disputes and legal language go to a person. So does high urgency. A draft with an unresolved price field also goes to a person.
+
+The workflow drafts replies but never sends them.
+
+## The worst bug looked like success
+
+Two test messages entered the database correctly. One was a quote request. The other chased an overdue invoice and mentioned a lawyer.
+
+Telegram rejected both alerts.
+
+The reason was small: the category names contained underscores. Telegram read them as formatting marks and rejected the message.
+
+The categories carrying the most risk were the categories no one saw.
+
+I changed the alert format and created safe copies of every field before sending it to Telegram. The original email stayed untouched in storage.
+
+A later test included angle brackets and an ampersand in the subject. The alert arrived.
+
+## Four runs measured more than speed
+
+Four live executions averaged 3.19 seconds.
+
+One quote request described 40 orders per day and a deadline before the Christmas rush. The workflow found both details and left the budget blank because the sender never gave one.
+
+A spam message entered the log without disturbing anyone.
+
+Then I installed the repository from scratch and tested the full path against a clean instance. A real Telegram message ID became the proof of delivery.
+
+Green boxes were no longer enough.
+
+## I built the queue I used to watch by hand
+
+My real-time operations work taught me to care about the space between a recorded event and human attention.
+
+The Inbox Triage Agent exists for the same reason.
+
+It does not replace judgment. It protects judgment from noise, then brings the serious message forward with the details already organised.
+
+A quiet inbox is useful only when silence means nothing important was missed.
 
 Built by handlit.

@@ -1,7 +1,7 @@
 ---
 title: The Safest Review Agent Never Posts
 status: draft
-excerpt: Why my Review & Reply Agent automates classification and drafting while leaving every public response under human control.
+excerpt: I spent years handling live support queues. They taught me why the hardest part of review automation is knowing when to stop.
 tags:
   - linkedin
   - handlit
@@ -9,41 +9,79 @@ tags:
 coverImage: null
 coverAlt: ""
 createdAt: 2026-08-29T04:00:00.000Z
-updatedAt: 2026-08-29T04:00:00.000Z
+updatedAt: 2026-08-29T14:30:00.000Z
 publishedAt: null
 archivedAt: null
 seoTitle: The Safest Review Agent Never Posts
-seoDescription: A review workflow built around escalation rules, human approval and a verified 3.48-second average runtime.
+seoDescription: Why support-floor experience led me to build a review agent around escalation, restraint and human approval.
 ---
 
-The safest review agent never posts a reply.
+A customer says her child became ill after a visit.
 
-I built an n8n and Claude workflow to read a customer review, check its risk, then queue a draft or escalate it to the owner.
+The message also names a staff member and mentions a regulator.
 
-## The stopping rule is the product
+Most automation demos treat this as a writing task. Read the complaint, produce a polite reply, move on.
 
-A rating of three or below escalates. So do allegations involving illness, injury, hygiene, discrimination, staff conduct, legal action, chargebacks, regulators or press.
+I built my Review & Reply Agent to do the opposite.
 
-Malformed model output fails closed. The workflow escalates instead of guessing.
+It stopped.
 
-## Three runs tested three different boundaries
+## Support work taught me to respect the hand-off
 
-Three live executions averaged 3.48 seconds from intake to delivered alert.
+I spent five years in a BPO moving through technical support, live queue management, training and sales support.
 
-A five-star review reached the approval queue. A two-star review combining food poisoning with a legal threat reached the owner. A one-star complaint involving a child’s illness reached the owner with no suggested response.
+The job changed, but one rule stayed consistent: some problems belong with the person holding the right authority.
 
-## Logging comes before alerting
+A support agent should not invent a policy. A trainer should not hide a weak process behind a better script. A live queue should not look healthy because the difficult cases were counted in the wrong place.
 
-Every review enters the database before Telegram sends an alert. A notification failure never erases the source event.
+Years later, the same rule shaped this build.
 
-Graph dependencies enforce the order. Canvas position does not.
+The goal was never to make an AI sound calm in public. The goal was to reduce the reading and sorting work without letting a model speak for the owner during a serious complaint.
 
-## The reversible work belongs to automation
+## The first useful feature was a refusal
 
-The agent handles reading, classification, routing and drafting.
+The workflow reads each review and checks for clear warning signs.
 
-The public reply stays with the person responsible for the business.
+A rating of three or below goes to the owner. So do reports involving illness, injury, hygiene, discrimination, staff conduct, legal action, chargebacks, regulators or press.
 
-The boundary is the product.
+If the model returns an answer the workflow cannot read, the review goes to the owner. No guess fills the gap.
+
+Routine praise follows a different path. The system writes a draft and puts it in an approval queue.
+
+Nothing posts on its own.
+
+## Three runs tested the boundary
+
+I ran three live cases from start to finish.
+
+A five-star review praised a specific dish and the staff. The workflow wrote a relevant reply and queued it for approval.
+
+A two-star review alleged food poisoning, named a staff member and threatened legal action. The workflow escalated it.
+
+The complaint involving a child’s illness also escalated. The model left the reply blank.
+
+At first, the empty field looked broken. I changed the alert to say why no draft was written: a suggested response risked doing more harm than good.
+
+The three runs averaged 3.48 seconds from intake to delivered alert.
+
+## A green workflow was not enough
+
+I later installed the repository from scratch, the way a stranger would.
+
+The test used a clean n8n instance, real credentials, a real test message and a real Telegram delivery. The pass condition was not a row of green boxes. It was a returned Telegram message ID.
+
+The test exposed the difference between a workflow running on its creator’s machine and one another person is able to install.
+
+It also reinforced an older lesson from support work: completion is not the same as resolution.
+
+## The part worth selling is the boundary
+
+The agent handles the repetitive work: reading, sorting, checking rules and preparing safe drafts.
+
+The owner keeps the irreversible decision.
+
+I did not build it to remove a person from customer care. I built it to make sure the person arrives at the right moment, with the full review already organised.
+
+The safest review agent is fast because it knows where its job ends.
 
 Built by handlit.

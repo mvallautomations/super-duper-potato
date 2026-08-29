@@ -1,7 +1,7 @@
 ---
 title: The Prompt Is Not the Brand Guardrail
 status: draft
-excerpt: My Content Repurposer writes three formats, then checks vocabulary and structure in code before anything reaches the delivery queue.
+excerpt: Training, documentation and brand-facing work taught me why a writing instruction needs a check after the draft exists.
 tags:
   - linkedin
   - handlit
@@ -9,39 +9,81 @@ tags:
 coverImage: null
 coverAlt: ""
 createdAt: 2026-08-29T04:00:00.000Z
-updatedAt: 2026-08-29T04:00:00.000Z
+updatedAt: 2026-08-29T14:30:00.000Z
 publishedAt: null
 archivedAt: null
 seoTitle: The Prompt Is Not the Brand Guardrail
-seoDescription: A content workflow with deterministic checks after generation and a verified 7.08-second average runtime.
+seoDescription: Why I built a content workflow with a separate voice check, stress test and verified delivery path.
 ---
 
-The prompt is not the brand guardrail.
+The first draft sounded acceptable.
 
-I built an n8n and Claude workflow to turn one finished source into a LinkedIn post, a five-slide carousel and a 30-second video script.
+The second sounded like every loud marketing post I avoid.
 
-## Generation is only the first pass
+Both came from the same writing instructions.
 
-Code checks the output afterward. The LinkedIn draft must stay between 90 and 230 words and end on a statement. The carousel must contain exactly five slides.
+This is the problem behind my Content Repurposer. Producing more text was never the hard part. Keeping the voice intact after the source, format and model changed was harder.
 
-A prohibited-term list checks the language.
+## I learned early how instructions drift in use
 
-## Failed work enters a rewrite queue
+As a back-up trainer, I worked with new hires and seasonal agents. I wrote process documents, built training material and reviewed how people applied it under live conditions.
 
-Anything failing the gate routes to Flag for Rewrite instead of Send Drafts.
+A good slide deck did not guarantee a good call.
 
-The workflow keeps the rejected draft for inspection. A guardrail should flag work, not erase it.
+The written process mattered. The review after the work mattered too.
 
-## An adversarial source tested the gate
+I later worked in brand-facing roles and ran a personal training practice. Both made inconsistency visible. A message, routine or programme loses trust when the experience changes each time someone touches it.
 
-I fed the workflow deliberately off-voice marketing copy. Two prohibited phrases survived the model. The LinkedIn draft also came back at 57 words.
+When I moved into AI systems, I recognised the same issue in prompts.
 
-The code caught all three failures.
+An instruction is a starting point. It is not proof of the final behaviour.
 
-## The measured result covers all three formats
+## I built the checker after the writer
 
-Two live runs averaged 7.08 seconds. The clean source passed. The adversarial source failed for the reasons the gate was built to catch.
+The Content Repurposer takes one finished source and writes three pieces: a LinkedIn post, a five-slide carousel and a 30-second video script.
 
-A prompt expresses taste. A post-generation check enforces the publishing boundary.
+Then a separate code step checks the result.
+
+The LinkedIn draft needs to stay within its word range and end on a statement. The carousel needs exactly five slides. A list of phrases catches language I do not publish.
+
+Anything failing the check enters a rewrite queue.
+
+The rejected draft stays in the database. I still want to see what went wrong.
+
+## The stress test mattered more than the clean run
+
+The first live run used a real note from one of my builds. The three outputs passed.
+
+For the second run, I fed the workflow source material packed with empty superlatives, unsupported claims and manufactured urgency.
+
+The model resisted most of it.
+
+Two prohibited phrases survived. The LinkedIn post also stopped at 57 words, below the required range.
+
+The code caught every failure and withheld the package from the delivery route.
+
+Two runs averaged 7.08 seconds for all three formats.
+
+## A pass needed to reach the outside world
+
+I later installed the repository from scratch on a clean n8n instance.
+
+The workflow had to load, accept a real test message, create the records and deliver the Telegram alert. A real message ID became the pass condition.
+
+This caught the kind of problems a creator’s existing setup hides: stale instructions, missing fields, local assumptions and steps named differently from the form sending data.
+
+The test treated documentation as part of the product.
+
+My training background would not let me call a process complete if only its author knew how to run it.
+
+## The real product is a repeatable standard
+
+The workflow saves time, but speed is not the reason I built it.
+
+I built it because voice is easy to describe and hard to protect across repeated output.
+
+The writer proposes. The checker compares the draft against a visible standard. I make the final decision.
+
+The split keeps AI in the role I trust: producing options quickly while leaving taste and accountability with the person publishing the work.
 
 Built by handlit.

@@ -1,7 +1,7 @@
 ---
-title: Lead Speed Starts With the CRM
+title: Lead Speed Starts With the Record
 status: draft
-excerpt: My nine-node Speed-to-Lead workflow completes in 7.4 seconds, but its most important feature is the order of operations.
+excerpt: I built a 7.4-second lead workflow because years of live operations and solo service work taught me what delay costs.
 tags:
   - linkedin
   - handlit
@@ -9,39 +9,83 @@ tags:
 coverImage: null
 coverAlt: ""
 createdAt: 2026-08-29T04:00:00.000Z
-updatedAt: 2026-08-29T04:00:00.000Z
+updatedAt: 2026-08-29T14:30:00.000Z
 publishedAt: null
 archivedAt: null
-seoTitle: Lead Speed Starts With the CRM
-seoDescription: A nine-node lead workflow with verified 7.4-second runtime and CRM-first ordering.
+seoTitle: Lead Speed Starts With the Record
+seoDescription: The operational history, failure order and end-to-end evidence behind my 7.4-second lead workflow.
 ---
 
-7.4 seconds from form submission to a scored lead, CRM record, routed reply and owner alert.
+An enquiry arrives at 11 p.m.
 
-My Speed-to-Lead workflow runs across nine n8n nodes.
+The reply goes out at 10 a.m.
 
-## A score needs a reason
+By then, the person has hired someone else.
 
-The workflow validates the form, then scores the lead against a fixed rubric.
+Speed-to-Lead began with this ordinary gap. No dramatic AI problem. No need for a robot salesperson. A message arrived outside working hours and waited in the wrong place.
 
-The model returns a number with a stated reason. One logged test produced 9 out of 10 with its reasoning attached.
+## Delay followed me through different kinds of work
 
-## Routing follows the score
+I started in technical support, then moved into real-time operations and training.
 
-Hot and nurture leads follow separate paths. Each path receives a tailored reply and creates an owner alert.
+On a support floor, delay is visible. Calls stack up. Coverage shifts. One late hand-off changes the next hour.
 
-The business keeps final qualification and pricing decisions.
+Years later, I ran my own personal training practice. The work included intake, assessment, scheduling, progress records and billing. Retention depended on follow-up as much as the session itself.
 
-## The CRM write happens first
+Different industries, same pattern: the work often enters before the person has time to process it.
 
-Both send paths depend on the database node. If email delivery fails, the lead record still exists.
+I built Speed-to-Lead to protect the first response without pretending every enquiry deserves the same answer.
 
-The dependency lives in the graph rather than the visual placement of nodes.
+## A fast reply still needs a reason
 
-## The number comes from the final order
+The workflow begins with a form.
 
-The 7.4-second result belongs to the logged execution with the final CRM-first structure. It is not an estimate or an earlier run.
+It checks the submission, scores the lead against a written set of rules and returns a reason with the score.
 
-Fast follow-up earns attention. Durable capture protects the opportunity.
+One logged run scored a lead 9 out of 10 and explained why.
+
+Hot and nurture leads follow different paths. Each receives a reply matched to its route. The owner receives an alert with the same context.
+
+The system helps with timing and sorting. A person keeps pricing and final qualification.
+
+## I nearly optimised the wrong finish line
+
+A fast email looks impressive in a demo.
+
+A missing lead does not.
+
+The first structure treated the reply, phone alert and database record as neighbouring steps. I changed the order so both send paths depend on the database write.
+
+The lead enters the customer database before the reply or alert leaves the workflow.
+
+If email fails, the record remains. If Telegram fails, the record remains.
+
+The send is no longer the finish line. Durable capture is.
+
+## Four executions established the current number
+
+The certified workflow ran end to end across four logged executions.
+
+The public figure is 7.4 seconds, taken from the final record-first order.
+
+An earlier 6.75-second run belonged to the old structure. It was faster, but it measured the version before the safer dependency was added.
+
+I kept the slower number because it describes the system I would hand over.
+
+I later installed the workflow from scratch on a clean n8n instance. The test fired a real test message and required a real Telegram message ID before it passed.
+
+## The lesson is older than the software
+
+Real-time operations taught me to watch the queue.
+
+Training taught me to write the process so someone else was able to follow it.
+
+Running a solo service practice taught me how much follow-up hides behind the visible work.
+
+Speed-to-Lead brings those lessons into one small system.
+
+It answers quickly, records first and leaves the decision with the owner.
+
+Useful speed still leaves a trail.
 
 Built by handlit.
