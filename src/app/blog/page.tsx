@@ -3,6 +3,7 @@ import Link from "next/link";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import { getAllPosts } from "@/lib/blog";
+import styles from "./blog.module.css";
 
 export const metadata: Metadata = {
   title: "Blog",
@@ -11,6 +12,12 @@ export const metadata: Metadata = {
 
 export default async function BlogPage() {
   const posts = await getAllPosts();
+  const [featuredPost, ...remainingPosts] = posts;
+
+  const formatDate = (date: string) =>
+    new Intl.DateTimeFormat("en-PH", { dateStyle: "medium", timeZone: "Asia/Manila" }).format(
+      new Date(date),
+    );
 
   return (
     <>
@@ -30,29 +37,70 @@ export default async function BlogPage() {
 
         <div className="mv-container"><hr className="mv-rule" /></div>
 
-        <section style={{ paddingBottom: "clamp(3rem, 7vw, 6rem)" }}>
-          <div className="mv-container" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 340px), 1fr))", gap: "1.25rem" }}>
-            {posts.map((post) => (
-              <article key={post.slug} className="mv-card" style={{ padding: "1.5rem" }}>
-                <p className="eyebrow" style={{ marginBottom: "0.8rem" }}>
-                  {post.publishedAt
-                    ? new Intl.DateTimeFormat("en-PH", { dateStyle: "medium", timeZone: "Asia/Manila" }).format(new Date(post.publishedAt))
-                    : "Unpublished"}
-                </p>
-                <h2 style={{ fontSize: "1.3rem", marginBottom: "0.75rem" }}>{post.title}</h2>
-                <p style={{ color: "var(--ink-secondary)", lineHeight: 1.7, marginBottom: "1rem" }}>{post.excerpt}</p>
-                <div style={{ display: "flex", flexWrap: "wrap", gap: "0.4rem", marginBottom: "1rem" }}>
-                  {post.tags.map((tag) => (
-                    <span key={tag} style={{ fontFamily: "var(--font-jetbrains)", fontSize: "0.65rem", letterSpacing: "0.06em", textTransform: "uppercase", padding: "0.2rem 0.5rem", borderRadius: "3px", border: "1px solid var(--border-light)", color: "var(--ink-muted)", backgroundColor: "var(--bg-elevated)" }}>
-                      {tag}
-                    </span>
-                  ))}
+        {featuredPost ? (
+          <section className={styles.featuredSection}>
+            <div className="mv-container">
+              <p className={`eyebrow ${styles.sectionLabel}`}>Latest dispatch</p>
+              <article className={`mv-card ${styles.featuredCard}`}>
+                {featuredPost.coverImage ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    src={featuredPost.coverImage}
+                    alt={featuredPost.coverAlt}
+                    className={styles.featuredImage}
+                  />
+                ) : (
+                  <div className={styles.featuredPlaceholder} aria-hidden="true">
+                    <span>mid·voyage</span>
+                  </div>
+                )}
+                <div className={styles.featuredCopy}>
+                  <p className="eyebrow">
+                    {featuredPost.publishedAt ? formatDate(featuredPost.publishedAt) : "Unpublished"}
+                  </p>
+                  <h2 className={styles.featuredTitle}>{featuredPost.title}</h2>
+                  <p className={styles.featuredExcerpt}>{featuredPost.excerpt}</p>
+                  <div className={styles.tags}>
+                    {featuredPost.tags.map((tag) => (
+                      <span key={tag} className={styles.tag}>{tag}</span>
+                    ))}
+                  </div>
+                  <Link href={`/blog/${featuredPost.slug}`} className="mv-btn">
+                    Read latest article
+                  </Link>
                 </div>
-                <Link href={`/blog/${post.slug}`} className="mv-btn">Read post</Link>
               </article>
-            ))}
-          </div>
-        </section>
+            </div>
+          </section>
+        ) : null}
+
+        {remainingPosts.length ? (
+          <section className={styles.archiveSection}>
+            <div className="mv-container">
+              <div className={styles.archiveHeading}>
+                <p className="eyebrow">Earlier notes</p>
+                <p>{remainingPosts.length} {remainingPosts.length === 1 ? "dispatch" : "dispatches"}</p>
+              </div>
+              <div className={styles.archiveList}>
+                {remainingPosts.map((post, index) => (
+                  <article key={post.slug} className={styles.archiveItem}>
+                    <p className={styles.archiveNumber}>{String(index + 1).padStart(2, "0")}</p>
+                    <div className={styles.archiveCopy}>
+                      <p className="eyebrow">
+                        {post.publishedAt ? formatDate(post.publishedAt) : "Unpublished"}
+                      </p>
+                      <h2><Link href={`/blog/${post.slug}`}>{post.title}</Link></h2>
+                      <p>{post.excerpt}</p>
+                    </div>
+                    <Link href={`/blog/${post.slug}`} className={styles.archiveLink} aria-label={`Read ${post.title}`}>
+                      Read <span aria-hidden="true">→</span>
+                    </Link>
+                  </article>
+                ))}
+              </div>
+            </div>
+          </section>
+        ) : null}
       </main>
       <Footer />
     </>

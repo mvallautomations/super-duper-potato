@@ -18,9 +18,34 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const post = await getPostBySlug(slug);
   if (!post) return { title: "Not Found" };
 
+  const canonicalUrl = `https://mvallarautomations.cc/blog/${post.slug}`;
+  const coverImage = post.coverImage
+    ? new URL(post.coverImage, "https://mvallarautomations.cc").toString()
+    : undefined;
+
   return {
     title: post.seoTitle || post.title,
     description: post.seoDescription || post.excerpt,
+    alternates: { canonical: canonicalUrl },
+    openGraph: {
+      type: "article",
+      url: canonicalUrl,
+      title: post.seoTitle || post.title,
+      description: post.seoDescription || post.excerpt,
+      publishedTime: post.publishedAt || undefined,
+      modifiedTime: post.updatedAt,
+      authors: ["Mishael Vallar"],
+      tags: [...post.tags],
+      images: coverImage
+        ? [{ url: coverImage, width: 1920, height: 1080, alt: post.coverAlt }]
+        : undefined,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: post.seoTitle || post.title,
+      description: post.seoDescription || post.excerpt,
+      images: coverImage ? [coverImage] : undefined,
+    },
   };
 }
 
@@ -30,9 +55,41 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
   if (!post) notFound();
 
   const article = Markdoc.transform(post.content.node);
+  const canonicalUrl = `https://mvallarautomations.cc/blog/${post.slug}`;
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: post.title,
+    description: post.seoDescription || post.excerpt,
+    image: post.coverImage
+      ? [new URL(post.coverImage, "https://mvallarautomations.cc").toString()]
+      : undefined,
+    datePublished: post.publishedAt,
+    dateModified: post.updatedAt,
+    mainEntityOfPage: canonicalUrl,
+    author: {
+      "@type": "Person",
+      name: "Mishael Vallar",
+      url: "https://mvallarautomations.cc/about",
+      sameAs: [
+        "https://www.linkedin.com/in/mishaelvallar",
+        "https://github.com/mvallautomations",
+      ],
+    },
+    publisher: {
+      "@type": "Organization",
+      name: "mid·voyage",
+      url: "https://mvallarautomations.cc",
+    },
+    keywords: post.tags.join(", "),
+  };
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replace(/</g, "\\u003c") }}
+      />
       <Nav />
       <main>
         <section style={{ paddingTop: "clamp(3.5rem, 8vw, 6rem)", paddingBottom: "clamp(2.5rem, 6vw, 5rem)" }}>
