@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 
@@ -8,13 +9,13 @@ import Footer from "@/components/Footer";
    live price anchors from handlit.app. This site documents;
    handlit sells — every CTA points at handlit.app.
    Prices must match handlit.app's locked offer stack. Do not
-   invent numbers or client claims (pre-revenue: own-ops only).
+   invent numbers or client claims — cite own-ops evidence only.
    ============================================================ */
 
 export const metadata: Metadata = {
   title: "Services",
   description:
-    "Every service Mishael Vallar delivers through handlit — audits, automation builds, chat agents, and retainers — with live pricing on handlit.app.",
+    "Every service Mishael Vallar delivers through handlit — the automation audit, three build tiers, chat agents, and retainers — with live pricing on handlit.app.",
 };
 
 type Service = {
@@ -28,44 +29,52 @@ type Service = {
 
 const AUDITS: Service[] = [
   {
-    name: "Discovery Audit",
+    name: "Cost Calculator",
     price: "Free",
-    cadence: "15 minutes, on the site",
-    what: "A guided check-up — tap through questions that fit your kind of business, no typing, no microphone. You get a score for how much of your week could run itself, and the top 3 places your time is leaking. Report lands in your inbox within a business day.",
-    href: "https://handlit.app/#audit",
-    linkLabel: "Take it at handlit.app",
+    cadence: "two minutes, in your browser",
+    what: "Put your own volumes and rates in and it returns one figure: what a manual process is costing you a year. Mistakes are discounted to 60% confidence and missed work to 40%, because those are projections rather than guarantees. Nothing is sent anywhere — the page makes no network requests at all.",
+    href: "https://handlit.app/calculator",
+    linkLabel: "Run it at handlit.app",
   },
   {
-    name: "Chat Readiness Audit",
-    price: "$297",
-    cadence: "fixed, 48-hour turnaround",
-    what: "A plain-language report on how customers reach a business today, where each path stalls, and which chat agent would close the gap — with projections labeled as projections. Useful even if you never hire me again.",
-    href: "https://handlit.app/#agent-architect",
+    name: "Automation Audit",
+    price: "$600",
+    cadence: "fixed · credited against any build within 30 days",
+    what: "A process map of what actually happens, a ranked list of what is genuinely worth automating, the technical findings on the systems and data, and a phased plan with indicative costs. If existing software solves the problem, the report says so and names it — and you keep the report either way.",
+    href: "https://handlit.app/#pricing",
     linkLabel: "Details at handlit.app",
   },
 ];
 
 const BUILDS: Service[] = [
   {
-    name: "Pilot Automation",
-    price: "$1,500",
-    cadence: "fixed, one-time · two-week ship",
-    what: "One workflow from your audit, built and handed over. Small on purpose — you see it working before committing to anything bigger. Runs on accounts you own; documentation included.",
+    name: "Essential Build",
+    price: "$2,500",
+    cadence: "fixed, one-time · worth doing above ~$12,500/yr recovered",
+    what: "One priority workflow for one team, on the core integration path. Standard evaluation set, documentation and launch handover, and a 30-day success review. Runs on accounts you own.",
     href: "https://handlit.app/#pricing",
     linkLabel: "Book at handlit.app",
   },
   {
-    name: "Custom Agent Build",
-    price: "$1,500–$2,500",
-    cadence: "project",
-    what: "A chat agent in your brand's voice, on your website and your busiest channel, answering from your real content — with a clean hand-off to a human when it matters. Two revision rounds and a before/after baseline.",
-    href: "https://handlit.app/#agent-architect",
-    linkLabel: "Details at handlit.app",
+    name: "Growth Build",
+    price: "$5,500",
+    cadence: "fixed, one-time · worth doing above ~$27,500/yr recovered",
+    what: "Everything in Essential, plus a second connected workflow, edge-case evaluation coverage, team training and adoption support, and a 60-day optimisation window. This is where most projects land.",
+    href: "https://handlit.app/#pricing",
+    linkLabel: "Book at handlit.app",
+  },
+  {
+    name: "Scale Build",
+    price: "$12,000",
+    cadence: "fixed, one-time · worth doing above ~$60,000/yr recovered",
+    what: "Everything in Growth across multiple teams or business units, with governance, permissions and reporting, an executive result dashboard, a phased roadmap, and priority response.",
+    href: "https://handlit.app/#pricing",
+    linkLabel: "Book at handlit.app",
   },
   {
     name: "Lead-Gen Engine",
-    price: "from $1,500",
-    cadence: "pilot install, then optional retainer",
+    price: "from $2,500",
+    cadence: "one build, then optional care",
     what: "A prospecting pipeline you own: scrape, score each prospect 0–100 against your ideal customer, write a personalized first line, dispatch. The open-source core replaced roughly $350 a month of subscription tools; the public demo runs on simulated data and says so.",
     href: "https://handlit.app/systems/lead-engine.html",
     linkLabel: "See the system live",
@@ -74,19 +83,19 @@ const BUILDS: Service[] = [
 
 const RETAINERS: Service[] = [
   {
-    name: "AI Partner Retainer",
+    name: "Roadmap Retainer",
     price: "from $2,000",
     cadence: "monthly",
-    what: "An automation department on retainer: new builds from a shared roadmap, monitoring, fixes, and monthly tune-ups. Cancel anytime and keep everything.",
+    what: "For businesses with more than one thing to fix. Each month: the next agreed improvement built, everything already live kept running, and the next bottleneck identified. Steady progress, not maintenance — new workflows and integrations are roadmap work, sized before they start. Cancel anytime and keep everything.",
     href: "https://handlit.app/#pricing",
     linkLabel: "Details at handlit.app",
   },
   {
     name: "Agent Care Plan",
-    price: "$250–$400",
+    price: "$350 · $650 priority",
     cadence: "monthly, after a build ships",
-    what: "Your chat agent stays current: prices, hours, and policies updated as they change, plus a monthly review of the questions it couldn't answer — fixed, not filed away.",
-    href: "https://handlit.app/#agent-architect",
+    what: "Keeps what was built working: monitoring, error logs, and repairs when an API or model changes underneath it, plus a monthly review of what it could not answer. 48-hour response at $350, same business day at $650. New workflows and integrations are a change request, priced separately.",
+    href: "https://handlit.app/#pricing",
     linkLabel: "Details at handlit.app",
   },
   {
@@ -232,9 +241,9 @@ export default function ServicesPage() {
             >
               The proof behind each service is my own operations — every system
               is tested on my own business first, and the numbers on the{" "}
-              <a href="/work" style={{ color: "var(--ink-primary)" }}>
+              <Link href="/work" style={{ color: "var(--ink-primary)" }}>
                 work page
-              </a>{" "}
+              </Link>{" "}
               come from logged runs, not projections.
             </p>
           </div>
